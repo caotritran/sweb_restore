@@ -8,3 +8,6 @@
 - name: run script to restore
   shell: sudo bash /tmp/restore.sh
   ignore_errors: yes
+  register: restore
+  
+- debug: var=restore.stdout_lines
