@@ -19,7 +19,7 @@ sudo rm -rf $path/public_html/*
 
 wget $source_url
 
-sudo unzip $source
+sudo unzip -o $source
 
 sudo mysql $wp_data_name < *.sql
 
