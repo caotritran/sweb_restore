@@ -19,15 +19,15 @@ sudo rm -rf $path/public_html/*
 
 wget $source_url
 
-sudo unzip *.zip
+sudo unzip $source
 
 sudo mysql $wp_data_name < *.sql
 
-sed -i "s/'DB_NAME', .*/'DB_NAME', '${wp_data_name}');/g" wp-config.php
-sed -i "s/'DB_USER', .*/'DB_USER', '${wp_user}');/g" wp-config.php
-sed -i "s/'DB_PASSWORD', .*/'DB_PASSWORD', '${wp_pass}');/g" wp-config.php
+sudo sed -i "s/'DB_NAME', .*/'DB_NAME', '${wp_data_name}');/g" wp-config.php
+sudo sed -i "s/'DB_USER', .*/'DB_USER', '${wp_user}');/g" wp-config.php
+sudo sed -i "s/'DB_PASSWORD', .*/'DB_PASSWORD', '${wp_pass}');/g" wp-config.php
 
 sudo chown $user:$user -R *
 
 cd $path/wp-content/
-rm -rf advanced-cache.php cache wp-rocket-config
+sudo rm -rf advanced-cache.php cache wp-rocket-config
