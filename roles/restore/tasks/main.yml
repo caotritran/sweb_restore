@@ -5,6 +5,6 @@
     dest: /tmp/restore.sh
     mode: 755
 
-- name: run script to collect info
-  shell: bash /tmp/restore.sh
+- name: run script to restore
+  shell: sudo bash /tmp/restore.sh
   ignore_errors: yes
