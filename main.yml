@@ -1,0 +1,11 @@
+---
+- name: restore website wp
+  hosts: all
+  become: yes
+  become_method: sudo
+
+  vars:
+    - include_vars: group_vars/variables.txt
+
+  roles:
+    - restore

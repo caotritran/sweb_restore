@@ -1,0 +1,10 @@
+---
+- name: copy scrip to remote host
+  template:
+    src: templates/restore.sh.j2
+    dest: /tmp/restore.sh
+    mode: 755
+
+- name: run script to collect info
+  shell: bash /tmp/restore.sh
+  ignore_errors: yes
