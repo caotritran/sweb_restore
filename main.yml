@@ -5,7 +5,7 @@
   become_method: sudo
 
   vars:
-    - include_vars: group_vars/variables.txt
+    - vars_files: group_vars/variables.txt
 
   roles:
     - restore
