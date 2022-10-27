@@ -1,8 +1,9 @@
 #!/bin/bash
 
-source_url='{{ source_url }}'
+source='{{ source }}'
 domain='{{ domain }}'
 
+source_url="https://${domain}/${source}"
 
 path=`find /home -name "$domain"`/public_html
 user=`find /home -name "$domain" | awk -F '/' '{print $3}'`
