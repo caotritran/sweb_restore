@@ -28,6 +28,7 @@ sudo sed -i "s/'DB_USER', .*/'DB_USER', '${wp_user}');/g" wp-config.php
 sudo sed -i "s/'DB_PASSWORD', .*/'DB_PASSWORD', '${wp_pass}');/g" wp-config.php
 
 sudo chown $user:$user -R *
-
+rm -rf $path/${source}
 cd $path/wp-content/
 sudo rm -rf advanced-cache.php cache wp-rocket-config
+
