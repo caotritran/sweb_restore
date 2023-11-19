@@ -5,22 +5,22 @@ domain='{{ domain }}'
 
 source_url="https://${domain}/${source}"
 
-path=`find /home -name "$domain"`/public_html
-user=`find /home -name "$domain" | awk -F '/' '{print $3}'`
+path=`find /home -name "$domain" | head -n 1`/public_html
+user=`find /home -name "$domain" | head -n 1 | awk -F '/' '{print $3}'`
 
 if [[ -e "${path}/.env"  ]]; then
     wp_user=`cat $path/.env | grep 'DB_USER=' | awk -F"'" '{print $2}'`
     wp_data_name=`cat $path/.env | grep 'DB_NAME=' | awk -F"'" '{print $2}'`
     wp_pass=`cat $path/.env | grep 'DB_PASSWORD' | awk -F"'" '{print $2}'`
 
-    cd $path/
+    cd ${path}/
     sudo mv .env ..
-    sudo rm -rf $path/*
+    mkdir /tmp/${domain}
+    sudo mv ${path}/* /tmp/${domain}
     wget --no-check-certificate $source_url
 
-    sudo unzip -o $source
+    sudo unzip -q -o $source
     sudo mysql $wp_data_name < *.sql
-    cd ${path}
     sudo chown $user:$user -R *
     rm -rf $path/${source}
 
@@ -34,14 +34,14 @@ else
     wp_data_name=`cat $path/wp-config.php | grep 'DB_NAME' | awk -F',' '{print $2}' | cut -c 3- | rev | cut -c 4- | rev`
     wp_pass=`cat $path/wp-config.php | grep 'DB_PASSWORD' | awk -F',' '{print $2}' | cut -c 3- | rev | cut -c 4- | rev`
 
-    cd $path/
+    cd ${path}/
     sudo mv wp-config.php ..
-    sudo rm -rf $path/*
+    mkdir /tmp/${domain}
+    sudo mv $path/* /tmp/${domain}
     wget --no-check-certificate $source_url
 
-    sudo unzip -o $source
+    sudo unzip -q -o $source
     sudo mysql $wp_data_name < *.sql
-    cd ${path}
     sudo chown $user:$user -R *
     rm -rf $path/${source}
 
@@ -51,5 +51,3 @@ else
     cd $path/wp-content/
     sudo rm -rf advanced-cache.php cache wp-rocket-config
 fi
-
-
